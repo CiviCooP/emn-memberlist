@@ -9,9 +9,9 @@
     <email>klaas.eikelboom@civicoop.org</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">http://FIXME</url>
-    <url desc="Documentation">http://FIXME</url>
-    <url desc="Support">http://FIXME</url>
+    <url desc="Main Extension Page">https://github.com/CiviCooP/emn-memberlist</url>
+    <url desc="Documentation">https://github.com/CiviCooP/emn-memberlist/blob/master/README.md</url>
+    <url desc="Support">helpdesk@civicoop.org</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
   <releaseDate>2019-02-15</releaseDate>
