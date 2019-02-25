@@ -161,3 +161,13 @@ function emn_memberlist_civicrm_navigationMenu(&$menu) {
   ));
   _emn_memberlist_civix_navigationMenu($menu);
 } // */
+
+function emn_memberlist_civicrm_alterAPIPermissions($entity, $action, &$params, &$permissions)
+{
+  if($entity=='emn_member'&&strtolower($action)=='list'){
+    $params['check_permissions'] = false;
+  }
+  if($entity=='emn_member'&&strtolower($action)=='ping'){
+    $params['check_permissions'] = false;
+  }
+}
