@@ -6,13 +6,6 @@
  */
 class CRM_EmnMemberlist_EmnMember {
 
-  /**
-   * CRM_EmnMemberlist_EmnMember constructor.
-   */
-  public function __construct() {
-    $this->cf = $this->customFields(['Type_of_Organisation','Description','EMN_member_since','Shortened_URL']);
-  }
-
   private function customFields($fields){
     $result = [];
     foreach($fields as $field){
