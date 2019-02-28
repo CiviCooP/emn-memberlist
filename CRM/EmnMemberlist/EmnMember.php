@@ -69,6 +69,7 @@ SQL;
         'email' => $dao->email,
         'website' => $dao->website,
         'shortened_url' => $dao-> shortened_url,
+        'street_address' => $dao->street_address,
         'city' => $dao->city,
         'postal_code' => $dao->postal_code,
         'country'     => $dao->country,
