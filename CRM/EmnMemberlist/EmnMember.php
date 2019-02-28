@@ -10,7 +10,7 @@ class CRM_EmnMemberlist_EmnMember {
    * CRM_EmnMemberlist_EmnMember constructor.
    */
   public function __construct() {
-    $this->cf = $this->customFields(['Type_of_Organisation','Description','EMN_member_since']);
+    $this->cf = $this->customFields(['Type_of_Organisation','Description','EMN_member_since','Shortened_URL']);
   }
 
   private function customFields($fields){
@@ -30,7 +30,7 @@ class CRM_EmnMemberlist_EmnMember {
 
   public function memberlist(){
     $result=[];
-    $cf = $this->customFields(['Type_of_Organisation','Description','EMN_member_since']);;
+    $cf = $this->customFields(['Type_of_Organisation','Description','EMN_member_since','Shortened_URL']);;
 
     $sql = <<<"SQL"
 select c.id contact_id
@@ -47,6 +47,7 @@ select c.id contact_id
 ,      mtype.name  membership_type     
 ,      {$cf['Description']['column_name']}  description
 ,      {$cf['EMN_member_since']['column_name']} member_since 
+,      {$cf['Shortened_URL']['column_name']} shortened_url    
 ,      ov.label   type_of_organization  
 from   civicrm_contact c
 join   civicrm_membership cm on c.id = cm.contact_id
@@ -59,6 +60,7 @@ left join   civicrm_country cnt on (ad.country_id = cnt.id)
 left join   {$cf['Description']['table_name']} dsc on (c.id = dsc.entity_id) 
 left join   {$cf['EMN_member_since']['table_name']} ms on (c.id = ms.entity_id) 
 left join   {$cf['Type_of_Organisation']['table_name']} ot on (c.id = ot.entity_id)  
+left join   {$cf['Shortened_URL']['table_name']} shurl on (c.id = shurl.entity_id) 
 left join   civicrm_option_value ov on (ov.value = ot.type_of_organisation_1 and ov.option_group_id={$cf['Type_of_Organisation']['option_group_id']})  
 where  contact_type='Organization'
 SQL;
@@ -73,6 +75,7 @@ SQL;
         'phone' => $dao->phone,
         'email' => $dao->email,
         'website' => $dao->website,
+        'shortened_url' => $dao-> shortened_url,
         'city' => $dao->city,
         'postal_code' => $dao->postal_code,
         'country'     => $dao->country,
