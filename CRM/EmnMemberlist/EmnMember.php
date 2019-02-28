@@ -42,11 +42,15 @@ select c.id contact_id
 ,      ad.city
 ,      ad.postal_code
 ,      cnt.name country
+,      cnt.iso_code  
+,      c.image_URL logo 
+,      mtype.name  membership_type     
 ,      {$cf['Description']['column_name']}  description
 ,      {$cf['EMN_member_since']['column_name']} member_since 
 ,      ov.label   type_of_organization  
 from   civicrm_contact c
 join   civicrm_membership cm on c.id = cm.contact_id
+join   civicrm_membership_type mtype on (cm.membership_type_id = mtype.id)
 left join   civicrm_phone ph on (c.id = ph.contact_id and ph.is_primary=1)
 left join   civicrm_email em on (c.id = em.contact_id and em.is_primary=1)
 left join   civicrm_website w on (c.id = w.contact_id and website_type_id=2)
@@ -72,9 +76,12 @@ SQL;
         'city' => $dao->city,
         'postal_code' => $dao->postal_code,
         'country'     => $dao->country,
+        'country_code'    => $dao->iso_code,
+        'logo'    => $dao->logo,
         'description' => $dao->description,
         'member_since' => substr($dao->member_since,0,4),
         'type_of_organization' => $dao->type_of_organization,
+        'membership_type' => $dao->membership_type
       ];
     }
     return $result;
