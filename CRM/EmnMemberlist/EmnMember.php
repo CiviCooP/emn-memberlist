@@ -43,10 +43,13 @@ select c.id contact_id
 ,      {$cf['Shortened_URL']['column_name']} shortened_url    
 ,      ov.label   type_of_organization  
 from   civicrm_contact c
-join   civicrm_membership cm on c.id = cm.contact_id
-join   civicrm_membership_type mtype on (cm.membership_type_id = mtype.id)
+join   civicrm_group_contact gc on (gc.contact_id = c.id and gc.status='Added')
+join   civicrm_group gr on (gc.group_id = gr.id and gr.name='Member_organisations_3')
+left join   civicrm_membership cm on c.id = cm.contact_id
+left join   civicrm_membership_type mtype on (cm.membership_type_id = mtype.id)
 left join   civicrm_phone ph on (c.id = ph.contact_id and ph.is_primary=1)
-left join   civicrm_email em on (c.id = em.contact_id and em.is_primary=1)
+left join   civicrm_location_type lt on (lt.name='Main')
+left join   civicrm_email em on (c.id = em.contact_id and em.location_type_id=lt.id)
 left join   civicrm_website w on (c.id = w.contact_id and website_type_id=2)
 left join   civicrm_address ad on (c.id= ad.contact_id and ad.is_primary=1)
 left join   civicrm_country cnt on (ad.country_id = cnt.id)
